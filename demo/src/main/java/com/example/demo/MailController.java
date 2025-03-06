@@ -38,7 +38,7 @@ public class MailController {
 			MimeMessageHelper helper = new MimeMessageHelper(mimeMessage);
 			helper.setTo("vipinsharmarsbv@gmail.com");
 			helper.setText("<h1>okay</h1>"
-					+ "<img src='http:localhost:8080/open/vipin'>",true);
+					+ "<img src='http:temp-production-e6a3.up.railway.app/open/vipin'>",true);
 			helper.setSubject("temp");
 			javaMailSender.send(mimeMessage);
 		} catch (Exception e) {
