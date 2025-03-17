@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EmailTracker - Dashboard</title>
+    <link rel="stylesheet" href="./css/email_tracking.css">
+</head>
+
+<body>
+
+    <header class="header">
+        <nav>
+            <h1>EmailTracker</h1>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Pricing</a></li>
+                <li><a href="#">Contact</a></li>
+                <li><a href="/login.html">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+
+
+
+    <section class="email-list">
+        <h2>Tracked Emails</h2></a>
+        <ul id="emailContainer">
+            <!-- Emails will be inserted here by JavaScript -->
+        </ul>
+    </section>
+    <div class="pagination">
+        <button id="prevBtn" onclick="changePage(-1)">Previous</button>
+        <span id="pageNumbers"></span>
+        <button id="nextBtn" onclick="changePage(1)">Next</button>
+    </div>
+
+
+    <!-- Logout Overlay -->
+    <div class="logout-popup-overlay" id="logout-popup">
+        <div class="logout-popup">
+            <div class="logout-loader"></div>
+            <p>Logging You Out...</p>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 EmailTracker. All rights reserved.</p>
+    </footer>
+
+    <script src="./js/email_tracking.js"></script>
+</body>
+
+</html>
