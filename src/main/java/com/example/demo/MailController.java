@@ -187,7 +187,7 @@ public class MailController {
 		entity.setSenderAddress(username);
 		entity.setReceiverAddress(to);
 		entity.setSubject(subject);
-		entity.setText(text + "<br><img src=" + img_url + " width='1px' height='1px' display='none'>");
+		entity.setText(text + "<br><img src='" + img_url + "' width='1px' height='1px' display='none'>");
 		
 		List<FileEntity> listFileEntities=new ArrayList<>();
 		
