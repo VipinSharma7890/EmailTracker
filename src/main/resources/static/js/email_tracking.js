@@ -20,7 +20,7 @@ else{
 //     document.querySelector(".email-list").style="z-index:0";
 // })
 
-let website_url="http://localhost:8080";
+let website_url="https://emailtracker.up.railway.app";
 let emails = [];
 
 // Load Emails into List
