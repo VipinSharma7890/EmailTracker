@@ -14,7 +14,7 @@ else {
 
 
 let selectedFiles = [];
-let website_url = "http://localhost:8080";
+let website_url = "https://emailtracker.up.railway.app";
 
 let editor = document.querySelector(".ql-editor");
 let params = new URLSearchParams(window.location.search);
