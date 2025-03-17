@@ -53,7 +53,7 @@ public class MailController {
 	JavaMailSenderImpl javaMailSenderImpl = new JavaMailSenderImpl();
 
 	String api_key = "36aece1351d1445b8b170ed3fef90a56&";
-	String website_url = "http://localhost:8080";
+	String website_url = "https://emailtracker.up.railway.app";
 
 	@GetMapping("/")
 	public RedirectView index() {
