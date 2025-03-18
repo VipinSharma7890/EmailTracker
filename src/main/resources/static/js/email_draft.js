@@ -20,7 +20,7 @@ else{
 //     document.querySelector(".email-list").style="z-index:0";
 // })
 
-let website_url="https://emailtracker.up.railway.app";
+let website_url="http://localhost:8080";
 let emails = [];
 
 // Load Emails into List
@@ -40,6 +40,7 @@ function displayEmails() {
     paginatedEmails.forEach((email) => {
         if (email.id === 0 || email.exist!=null) return;
 
+    document.querySelector(".email-list h2").innerText="Drafted Emails"
         console.log(email.exist)
         console.log(email.exist)
         let emailItem = document.createElement("li");
@@ -51,7 +52,7 @@ function displayEmails() {
             <div style="font-size:14px"><strong>From:</strong> ${email.receiverAddress} </div>
             <br>
             <div class="email-date-time" style="display:flex;justify-content:space-between">
-                <div style="font-size:14px"><strong>Draft Created at:</strong> ${changeFormatDate(email.created)}</div> 
+                <div style="font-size:14px"><strong>Draft Created at:</strong> ${formatDateTimeCustom(changeFormatDate(email.created))}</div> 
                  
             </div>
             <br>
@@ -109,6 +110,7 @@ let load = async () => {
         .then(result => emails = result);
     setTimeout(()=>{
             popup.classList.remove('show');
+            if(emails.length>0)
             displayEmails();
         },1000);
     
@@ -144,21 +146,55 @@ document.querySelector(".logout").addEventListener("click",()=>{
 
 
 
-
-function changeFormatDate(javaDateString){
-
-    if(javaDateString==null){
-        return "not delivered"
+function changeFormatDate(javaDateString) {
+    if (javaDateString == null) {
+        return "not delivered";
     }
 
     let date = new Date(javaDateString);
+    
+    // Adjust for IST (Indian Standard Time) - UTC +5:30
+    date.setTime(date.getTime() + (5 * 60 * 60 * 1000) + (30 * 60 * 1000));
 
-    // Format the date
-    let day = date.getDate().toString().padStart(2, '0'); // 01-31
-    let month = date.toLocaleString('en-US', { month: 'short' }); // Jan, Feb, etc.
-    let year = date.getFullYear(); // YYYY
-    let hours = date.getHours().toString().padStart(2, '0'); // 00-23
-    let minutes = date.getMinutes().toString().padStart(2, '0'); // 00-59
+    return date; // Return a Date object instead of a formatted string
+}
 
-    return `${day} ${month} ${year} at ${hours}:${minutes}`;
+function getTimeSince(javaDateString) {
+    if (javaDateString == null) {
+        return "not opened";
+    }
+
+    let pastDate = changeFormatDate(javaDateString); // Now this returns a Date object
+    let currentDate = new Date(); // Get current time
+
+    let diffMs = currentDate - pastDate; // Difference in milliseconds
+
+    let seconds = Math.floor(diffMs / 1000);
+    let minutes = Math.floor(seconds / 60);
+    let hours = Math.floor(minutes / 60);
+    let days = Math.floor(hours / 24);
+
+    if (days > 0) {
+        return `${days} day(s) ago`;
+    } else if (hours > 0) {
+        return `${hours} hour(s) ago`;
+    } else if (minutes > 0) {
+        return `${minutes} minute(s) ago`;
+    } else {
+        return `${seconds} second(s) ago`;
+    }
+}
+
+function formatDateTimeCustom(date) {
+    if (!(date instanceof Date) || isNaN(date.getTime())) {
+        return "Invalid Date";
+    }
+
+    const optionsDate = { weekday: 'short', day: '2-digit', month: 'short', year: 'numeric' };
+    const optionsTime = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
+
+    const formattedDate = date.toLocaleDateString('en-US', optionsDate);
+    const formattedTime = date.toLocaleTimeString('en-US', optionsTime);
+
+    return `${formattedDate} ${formattedTime}`;
 }
