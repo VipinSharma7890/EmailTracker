@@ -36,13 +36,11 @@ function displayEmails() {
     const start = (currentPage - 1) * itemsPerPage;
     const end = start + itemsPerPage;
     const paginatedEmails = emails.slice(start, end);
-
+    
     paginatedEmails.forEach((email) => {
-        if (email.id === 0 || email.exist!=null) return;
+        if (email.id === 0 ) return;
+        document.querySelector(".email-list h2").innerText="Tracked Emails"
 
-    document.querySelector(".email-list h2").innerText="Drafted Emails"
-        console.log(email.exist)
-        console.log(email.exist)
         let emailItem = document.createElement("li");
         emailItem.classList.add("email-item");
         emailItem.innerHTML = `
@@ -51,15 +49,17 @@ function displayEmails() {
             <div style="font-size:14px"><strong>To:</strong> ${email.senderAddress} </div> 
             <div style="font-size:14px"><strong>From:</strong> ${email.receiverAddress} </div>
             <br>
-            <div class="email-date-time" style="display:flex;justify-content:space-between">
-                <div style="font-size:14px"><strong>Draft Created at:</strong> ${formatDateTimeCustom(changeFormatDate(email.created))}</div> 
-                 
+            <div class="email-date-time" style="display:flex;justify-content:space-between"> 
+                <div style="font-size:14px"><strong>Delivered at:</strong> ${formatDateTimeCustom(changeFormatDate(email.delivered))}</div> 
+                <div style="font-size:14px"><strong>Last opened:</strong> ${getTimeSince(email.opened)}</div> 
             </div>
-            <br>
-            
-            
-        </div>`
-        ;
+        </div>
+        <br><br>
+        <div class="email-status">
+            <div class="status ${email.exist ? 'exist-yes' : 'exist-no'}">Exists: ${email.exist ? '✔' : '✖'}</div>
+            <div class="status ${email.delivered ? 'delivered-yes' : 'delivered-no'}">Delivered: ${email.delivered ? '✔' : '✖'}</div>
+            <div class="status ${email.opened ? 'opened-yes' : 'opened-no'}">Opened: ${email.opened ? '✔' : '✖'}</div>
+        </div>`;
         emailItem.onclick = () => open_mail(email.id);
         emailContainer.appendChild(emailItem);
     });
@@ -97,15 +97,13 @@ function goToPage(page) {
 }
 
 // Load Emails and Apply Pagination
-
-
 let load = async () => {
 
     const popup = document.getElementById('logout-popup');
-    popup.querySelector("p").innerText="loading your drafts...";
+    popup.querySelector("p").innerText="loading your mails...";
     popup.classList.add('show');
 
-    await fetch(website_url + "/get-mails/0?sender=" + localStorage.getItem("username"))
+    await fetch(website_url + "/get-mails/1?sender=" + localStorage.getItem("username"))
         .then(res => res.json())
         .then(result => emails = result);
     setTimeout(()=>{
@@ -115,7 +113,6 @@ let load = async () => {
         },1000);
     
 };
-
 
 load();
 
@@ -133,7 +130,6 @@ document.querySelector(".logout").addEventListener("click",()=>{
     const popup = document.getElementById('logout-popup');
     popup.querySelector("p").innerText="logging you out...";
 
-
     popup.classList.add('show');
     setTimeout(() => {
        
@@ -143,6 +139,9 @@ document.querySelector(".logout").addEventListener("click",()=>{
         window.location.href="./logout.html"
      }, 5000); 
 })
+
+
+
 
 
 
@@ -198,3 +197,5 @@ function formatDateTimeCustom(date) {
 
     return `${formattedDate} ${formattedTime}`;
 }
+
+
