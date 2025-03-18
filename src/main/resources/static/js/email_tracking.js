@@ -20,7 +20,7 @@ else{
 //     document.querySelector(".email-list").style="z-index:0";
 // })
 
-let website_url="https://emailtracker.up.railway.app";
+let website_url="http://localhost:8080";
 let emails = [];
 
 // Load Emails into List
@@ -38,8 +38,11 @@ function displayEmails() {
     const paginatedEmails = emails.slice(start, end);
 
     paginatedEmails.forEach((email) => {
-        if (email.id === 0) return;
+        if (email.id === 0 || email.exist!=null) return;
 
+    document.querySelector(".email-list h2").innerText="Drafted Emails"
+        console.log(email.exist)
+        console.log(email.exist)
         let emailItem = document.createElement("li");
         emailItem.classList.add("email-item");
         emailItem.innerHTML = `
@@ -48,20 +51,16 @@ function displayEmails() {
             <div style="font-size:14px"><strong>To:</strong> ${email.senderAddress} </div> 
             <div style="font-size:14px"><strong>From:</strong> ${email.receiverAddress} </div>
             <br>
-            <div class="email-date-time" style="display:flex;justify-content:space-between"> 
-                <div style="font-size:14px"><strong>Delivered at:</strong> ${changeFormatDate(email.delivered)}</div> 
-                <div style="font-size:14px"><strong>Last opened:</strong> ${getTimeSince(email.opened)}</div> 
+            <div class="email-date-time" style="display:flex;justify-content:space-between">
+                <div style="font-size:14px"><strong>Draft Created at:</strong> ${formatDateTimeCustom(changeFormatDate(email.created))}</div> 
+                 
             </div>
-        </div>
-        <br><br>
-        <div class="email-status">
-            <div class="status ${email.exist ? 'exist-yes' : 'exist-no'}">Exists: ${email.exist ? '✔' : '✖'}</div>
-            <div class="status ${email.delivered ? 'delivered-yes' : 'delivered-no'}">Delivered: ${email.delivered ? '✔' : '✖'}</div>
-            <div class="status ${email.opened ? 'opened-yes' : 'opened-no'}">Opened: ${email.opened ? '✔' : '✖'}</div>
-        </div>`;
+            <br>
+            
+            
+        </div>`
+        ;
         emailItem.onclick = () => open_mail(email.id);
-         console.log(email.delivered)
-        console.log("shfhdhgjdh")
         emailContainer.appendChild(emailItem);
     });
 
@@ -98,21 +97,25 @@ function goToPage(page) {
 }
 
 // Load Emails and Apply Pagination
+
+
 let load = async () => {
 
     const popup = document.getElementById('logout-popup');
-    popup.querySelector("p").innerText="loading your mails...";
+    popup.querySelector("p").innerText="loading your drafts...";
     popup.classList.add('show');
 
-    await fetch(website_url + "/get-mails/1?sender=" + localStorage.getItem("username"))
+    await fetch(website_url + "/get-mails/0?sender=" + localStorage.getItem("username"))
         .then(res => res.json())
         .then(result => emails = result);
     setTimeout(()=>{
             popup.classList.remove('show');
+            if(emails.length>0)
             displayEmails();
         },1000);
     
 };
+
 
 load();
 
@@ -129,6 +132,7 @@ load();
 document.querySelector(".logout").addEventListener("click",()=>{
     const popup = document.getElementById('logout-popup');
     popup.querySelector("p").innerText="logging you out...";
+
 
     popup.classList.add('show');
     setTimeout(() => {
@@ -181,67 +185,16 @@ function getTimeSince(javaDateString) {
     }
 }
 
-
-
-
-/*function changeFormatDate(javaDateString) {
-    if (javaDateString == null) {
-        return "not delivered";
+function formatDateTimeCustom(date) {
+    if (!(date instanceof Date) || isNaN(date.getTime())) {
+        return "Invalid Date";
     }
 
-    let date = new Date(javaDateString);
-    
-//return date;
-    // Format the date using the user's local timezone
-    let correctDate= new Intl.DateTimeFormat('en-US', { 
-        year: 'numeric', 
-        month: 'short', 
-        day: '2-digit', 
-        hour: '2-digit', 
-        minute: '2-digit', 
-        second: '2-digit',
-        // Automatically picks the user's timezone
-    }).format(date);
-correctDate.setTime(date.getTime() + (5 * 60 * 60 * 1000) + (30 * 60 * 1000));
+    const optionsDate = { weekday: 'short', day: '2-digit', month: 'short', year: 'numeric' };
+    const optionsTime = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
 
-return correctDate.toString();
-    
+    const formattedDate = date.toLocaleDateString('en-US', optionsDate);
+    const formattedTime = date.toLocaleTimeString('en-US', optionsTime);
+
+    return `${formattedDate} ${formattedTime}`;
 }
-
-
-function getTimeSince(javaDateString){
-    if(javaDateString==null){
-        return "not opened";
-    }
-    let pastDate = new Date(changeFormatDate(javaDateString)); // Convert Java date string to JavaScript Date
-    let currentDate = new Date(); // Get current date
-
-    currentDate= new Date(new Intl.DateTimeFormat('en-US', { 
-        timeZone:'Asia/Kolkata',
-        year: 'numeric', 
-        month: 'short', 
-        day: '2-digit', 
-        hour: '2-digit', 
-        minute: '2-digit', 
-        second: '2-digit',
-        // Automatically picks the user's timezone
-    }).format(currentDate));
-
-    let diffMs = currentDate - pastDate; // Difference in milliseconds
-
-    let seconds = Math.floor(diffMs / 1000);
-    let minutes = Math.floor(seconds / 60);
-    let hours = Math.floor(minutes / 60);
-    let days = Math.floor(hours / 24);
-
-    if (days > 0) {
-        return `${days} day(s) ago`;
-    } else if (hours > 0) {
-        return `${hours} hour(s) ago`;
-    } else if (minutes > 0) {
-        return `${minutes} minute(s) ago`;
-    } else {
-        return `${seconds} second(s) ago`;
-    }
-}
-*/
