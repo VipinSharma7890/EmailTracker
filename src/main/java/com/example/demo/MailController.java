@@ -316,7 +316,19 @@ public class MailController {
 	public List<MailEntity> getMails(@RequestParam("sender") String sender, @PathVariable("type") int type) {
 
 		if (type == 1)
-			return mailRepository.findAllNewest(sender).get();
+			return mailRepository.findAllNewest(sender).get().stream().map(entity->{
+				
+				if (entity.delivered != null)
+					entity.delivered.plusHours(5).plusMinutes(30);
+				if (entity.exist != null)
+					entity.exist.plusHours(5).plusMinutes(30);
+				if (entity.opened != null)
+					entity.opened.plusHours(5).plusMinutes(30);
+				if (entity.created != null)
+					entity.created.plusHours(5).plusMinutes(30);
+				return entity;
+			}
+			).collect(Collectors.toList());
 		
 
 		return mailRepository.findAllNewest(sender).get().stream()
