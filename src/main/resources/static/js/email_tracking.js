@@ -133,22 +133,21 @@ document.querySelector(".logout").addEventListener("click",()=>{
 
 
 
-function changeFormatDate(javaDateString){
-
-    if(javaDateString==null){
-        return "not delivered"
+function changeFormatDate(javaDateString) {
+    if (javaDateString == null) {
+        return "not delivered";
     }
 
     let date = new Date(javaDateString);
 
-    // Format the date
-    let day = date.getDate().toString().padStart(2, '0'); // 01-31
-    let month = date.toLocaleString('en-US', { month: 'short' }); // Jan, Feb, etc.
-    let year = date.getFullYear(); // YYYY
-    let hours = date.getHours().toString().padStart(2, '0'); // 00-23
-    let minutes = date.getMinutes().toString().padStart(2, '0'); // 00-59
+    // Convert to UTC
+    let day = date.getUTCDate().toString().padStart(2, '0'); // 01-31
+    let month = date.toLocaleString('en-US', { month: 'short', timeZone: 'UTC' }); // Jan, Feb, etc.
+    let year = date.getUTCFullYear(); // YYYY
+    let hours = date.getUTCHours().toString().padStart(2, '0'); // 00-23
+    let minutes = date.getUTCMinutes().toString().padStart(2, '0'); // 00-59
 
-    return `${day} ${month} ${year} at ${hours}:${minutes}`;
+    return `${day} ${month} ${year} at ${hours}:${minutes} UTC`;
 }
 
 
