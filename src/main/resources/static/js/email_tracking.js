@@ -60,6 +60,8 @@ function displayEmails() {
             <div class="status ${email.opened ? 'opened-yes' : 'opened-no'}">Opened: ${email.opened ? '✔' : '✖'}</div>
         </div>`;
         emailItem.onclick = () => open_mail(email.id);
+         console.log(email.delivered)
+        console.log("shfhdhgjdh")
         emailContainer.appendChild(emailItem);
     });
 
