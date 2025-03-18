@@ -412,7 +412,11 @@ public class MailController {
 	    	
 	    	return mailRepository.findById(id).get();
 	    }
-	    
+
+	@GetMapping("/debug-time")
+public ResponseEntity<String> debugTime() {
+    return ResponseEntity.ok("Server Time: " + LocalDateTime.now());
+}
 	
 //		@GetMapping("/get-file")
 //		public ResponseEntity<byte[]> getFile(@RequestParam("name") String fileName) {
