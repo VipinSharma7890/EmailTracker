@@ -11,6 +11,6 @@ import java.util.TimeZone;
 public class DemoApplication {
     public static void main(String[] args) {
         TimeZone.setDefault(TimeZone.getTimeZone("Asia/Kolkata")); // Set JVM timezone
-        SpringApplication.run(EmailApp.class, args);
+        SpringApplication.run(DemoApplication.class, args);
     }
 }
