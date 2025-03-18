@@ -38,7 +38,7 @@ function displayEmails() {
     const paginatedEmails = emails.slice(start, end);
     
     paginatedEmails.forEach((email) => {
-        if (email.id === 0 ) return;
+        if (email.id === 0 || email.exist==null) return;
         document.querySelector(".email-list h2").innerText="Tracked Emails"
 
         let emailItem = document.createElement("li");
