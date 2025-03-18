@@ -158,12 +158,16 @@ function changeFormatDate(javaDateString) {
 
 
 
-function getTimeSince(javaDateString){
-    if(javaDateString==null){
+function getTimeSince(javaDateString) {
+    if (javaDateString == null) {
         return "not opened";
     }
-    let pastDate = new Date(javaDateString); // Convert Java date string to JavaScript Date
-    let currentDate = new Date(); // Get current date
+
+    let pastDate = new Date(javaDateString);
+
+    // Convert current time to IST
+    let istOffset = 5.5 * 60 * 60 * 1000; // 5 hours 30 minutes in milliseconds
+    let currentDate = new Date(new Date().getTime() + istOffset);
 
     let diffMs = currentDate - pastDate; // Difference in milliseconds
 
