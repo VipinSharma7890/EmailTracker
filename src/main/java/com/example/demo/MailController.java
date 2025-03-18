@@ -107,7 +107,7 @@ public class MailController {
 	}
 
 	@GetMapping("/open")
-    public ResponseEntity<byte[]> open(@RequestParam("id") int id) {
+    public ResponseEntity<byte[]> open(@RequestParam("id") int id) throws IOException {
 		InputStream in = getClass().getResourceAsStream("/static/photos/favicon.jpg");
        		byte[] imageBytes = IOUtils.toByteArray(in);
 		MailEntity mailEntity = mailRepository.findById(id).get();
