@@ -140,15 +140,19 @@ function changeFormatDate(javaDateString) {
 
     let date = new Date(javaDateString);
 
-    // Convert to UTC
-    let day = date.getUTCDate().toString().padStart(2, '0'); // 01-31
-    let month = date.toLocaleString('en-US', { month: 'short', timeZone: 'UTC' }); // Jan, Feb, etc.
-    let year = date.getUTCFullYear(); // YYYY
-    let hours = date.getUTCHours().toString().padStart(2, '0'); // 00-23
-    let minutes = date.getUTCMinutes().toString().padStart(2, '0'); // 00-59
+    // Convert to IST (UTC+5:30)
+    let istOffset = 5.5 * 60 * 60 * 1000; // 5 hours 30 minutes in milliseconds
+    let istDate = new Date(date.getTime() + istOffset);
 
-    return `${day} ${month} ${year} at ${hours}:${minutes} UTC`;
+    let day = istDate.getUTCDate().toString().padStart(2, '0'); // 01-31
+    let month = istDate.toLocaleString('en-US', { month: 'short' }); // Jan, Feb, etc.
+    let year = istDate.getUTCFullYear(); // YYYY
+    let hours = istDate.getUTCHours().toString().padStart(2, '0'); // 00-23
+    let minutes = istDate.getUTCMinutes().toString().padStart(2, '0'); // 00-59
+
+    return `${day} ${month} ${year} at ${hours}:${minutes}`;
 }
+
 
 
 
