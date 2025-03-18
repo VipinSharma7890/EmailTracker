@@ -6,8 +6,10 @@ if (localStorage.getItem("username")) {
                 <li><a href="./email_sent_dashboard.html">Dashboard</a></li>
                 <li><a href="#" class="logout">Logout</a></li>
                 `;
-
-
+document.querySelector(".cta-button").href="./email_send.html";
+}
+else{
+    document.querySelector(".cta-button").href="./email_login.html";
 }
 
 
