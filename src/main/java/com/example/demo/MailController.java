@@ -107,17 +107,36 @@ public class MailController {
 	}
 
 	@GetMapping("/open")
-    public ResponseEntity<byte[]> open(@RequestParam("id") int id) throws IOException {
-		InputStream in = getClass().getResourceAsStream("/static/photos/favicon.jpg");
-       		byte[] imageBytes = IOUtils.toByteArray(in);
-		MailEntity mailEntity = mailRepository.findById(id).get();
-		mailEntity.setOpened(LocalDateTime.now());
-		mailRepository.save(mailEntity);
-	            HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.IMAGE_JPEG);
-	    
-        return new ResponseEntity<>(imageBytes, headers, HttpStatus.OK);
-	}
+public ResponseEntity<byte[]> open(@RequestParam("id") int id, HttpServletRequest request) throws IOException {
+    // Get User-Agent and IP Address
+    String userAgent = request.getHeader("User-Agent");
+    String ipAddress = request.getRemoteAddr();
+
+    // Log the request details
+    System.out.println("Tracking Image Requested - ID: " + id + ", User-Agent: " + userAgent + ", IP: " + ipAddress);
+
+    // Detect bots (example logic, improve as needed)
+    if (userAgent == null || userAgent.toLowerCase().contains("bot") || userAgent.toLowerCase().contains("crawler")) {
+        return ResponseEntity.status(HttpStatus.OK).build(); // Return empty response for bots
+    }
+
+    // Load the image
+    InputStream in = getClass().getResourceAsStream("/static/photos/favicon.jpg");
+    byte[] imageBytes = IOUtils.toByteArray(in);
+
+    // Update mail entity
+    mailRepository.findById(id).ifPresent(mailEntity -> {
+        mailEntity.setOpened(LocalDateTime.now());
+        mailRepository.save(mailEntity);
+    });
+
+    // Set response headers
+    HttpHeaders headers = new HttpHeaders();
+    headers.setContentType(MediaType.IMAGE_JPEG);
+
+    return new ResponseEntity<>(imageBytes, headers, HttpStatus.OK);
+}
+
 
 	@GetMapping("/exist/{type}")
 	public int exist(@RequestParam("email") String email, @PathVariable("type") int type)
