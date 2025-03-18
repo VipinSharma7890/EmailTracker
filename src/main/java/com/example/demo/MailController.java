@@ -233,7 +233,7 @@ public class MailController {
 //			        + "<img src='" + trackingUrl + "' width='1' height='1' style='display:none;'/>"
 //			        + "</body></html>";
 
-			helper.setText(text + "<br><img src='" + img_url + "'/>", true);
+			helper.setText(text + "<br><img src='" + img_url + "' style='display:none;'/>", true);
 
 			
 //helper.setText("<html><body><img src='https://emailtracker.up.railway.app/open?id=68' width='300px' height='auto' /></body></html>", true);
