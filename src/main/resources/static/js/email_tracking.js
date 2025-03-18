@@ -155,7 +155,7 @@ function changeFormatDate(javaDateString) {
     
 //return date;
     // Format the date using the user's local timezone
-    return new Intl.DateTimeFormat('en-US', { 
+    let correctDate= new Intl.DateTimeFormat('en-US', { 
         year: 'numeric', 
         month: 'short', 
         day: '2-digit', 
@@ -164,6 +164,10 @@ function changeFormatDate(javaDateString) {
         second: '2-digit',
         // Automatically picks the user's timezone
     }).format(date);
+correctDate.setTime(date.getTime() + (5 * 60 * 60 * 1000) + (30 * 60 * 1000));
+
+return correctDate.toString();
+    
 }
 
 
