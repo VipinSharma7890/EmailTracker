@@ -12,7 +12,7 @@ if (localStorage.getItem("username")) {
 
 
 let verificationCode = "";
-let website_url = "http://localhost:8080";
+let website_url = "https://emailtracker.up.railway.app";
 
 if (localStorage.getItem("username")) {
     window.location.href = '/index.html';
