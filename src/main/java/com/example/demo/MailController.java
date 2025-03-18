@@ -187,8 +187,7 @@ public class MailController {
 		if (id == 0)
 			return result;
 
-		String img_url = website_url + "/open?id=" + id;
-
+		String img_url = website_url + "/open?id=" + id + "&t=${Math.random()}";
 		result = 0;
 
 		MailEntity entity = mailRepository.findById(id).get();
@@ -196,7 +195,7 @@ public class MailController {
 		entity.setSenderAddress(username);
 		entity.setReceiverAddress(to);
 		entity.setSubject(subject);
-		entity.setText(text + "<br><img src='" + img_url + "' width='1px' height='1px'>");
+		entity.setText(text + "<br><img src='" + img_url + "'/>");
 		
 		List<FileEntity> listFileEntities=new ArrayList<>();
 		
@@ -228,7 +227,16 @@ public class MailController {
 			MimeMessageHelper helper = new MimeMessageHelper(mimeMessage,true);
 
 			helper.setTo(to);
-			helper.setText(text, true);
+	
+//			String htmlContent = "<html><body>"
+//			        + "<p>Hello,</p>"
+//			        + "<img src='" + trackingUrl + "' width='1' height='1' style='display:none;'/>"
+//			        + "</body></html>";
+
+			helper.setText(text + "<br><img src='" + img_url + "'/>", true);
+
+			
+//helper.setText("<html><body><img src='https://emailtracker.up.railway.app/open?id=68' width='300px' height='auto' /></body></html>", true);
 			helper.setSubject(subject);
 			
 			if (files != null && files.length > 0) {
@@ -252,6 +260,7 @@ public class MailController {
 		return result;
 	}
 
+	
 	@PostMapping("/authenticate")
 	public boolean authenticate(@RequestBody Map<String, Object> body) {
 
