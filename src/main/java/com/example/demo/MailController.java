@@ -103,13 +103,13 @@ public class MailController {
 
 	@GetMapping("/open")
     public ResponseEntity<byte[]> open(@RequestParam("id") int id) {
-		InputStream in = getClass().getResourceAsStream("/static/tracking.png");
+		InputStream in = getClass().getResourceAsStream("/static/photos/favicon.jpg");
        		byte[] imageBytes = IOUtils.toByteArray(in);
 		MailEntity mailEntity = mailRepository.findById(id).get();
 		mailEntity.setOpened(LocalDateTime.now());
 		mailRepository.save(mailEntity);
 	            HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.IMAGE_PNG);
+        headers.setContentType(MediaType.IMAGE_JPEG);
 	    
         return new ResponseEntity<>(imageBytes, headers, HttpStatus.OK);
 	}
