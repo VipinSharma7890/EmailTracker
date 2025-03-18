@@ -304,8 +304,8 @@ public class MailController {
 			user.setAccountType("free");
 			user.setMailLimit(10);
 
-			userRepository.save(user);
 		}
+			userRepository.save(user);
 
 		System.out.println("after");
 		return true;
