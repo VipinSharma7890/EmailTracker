@@ -142,11 +142,49 @@ document.querySelector(".logout").addEventListener("click",()=>{
 
 
 
-
-
-
-
 function changeFormatDate(javaDateString) {
+    if (javaDateString == null) {
+        return "not delivered";
+    }
+
+    let date = new Date(javaDateString);
+    
+    // Adjust for IST (Indian Standard Time) - UTC +5:30
+    date.setTime(date.getTime() + (5 * 60 * 60 * 1000) + (30 * 60 * 1000));
+
+    return date; // Return a Date object instead of a formatted string
+}
+
+function getTimeSince(javaDateString) {
+    if (javaDateString == null) {
+        return "not opened";
+    }
+
+    let pastDate = changeFormatDate(javaDateString); // Now this returns a Date object
+    let currentDate = new Date(); // Get current time
+
+    let diffMs = currentDate - pastDate; // Difference in milliseconds
+
+    let seconds = Math.floor(diffMs / 1000);
+    let minutes = Math.floor(seconds / 60);
+    let hours = Math.floor(minutes / 60);
+    let days = Math.floor(hours / 24);
+
+    if (days > 0) {
+        return `${days} day(s) ago`;
+    } else if (hours > 0) {
+        return `${hours} hour(s) ago`;
+    } else if (minutes > 0) {
+        return `${minutes} minute(s) ago`;
+    } else {
+        return `${seconds} second(s) ago`;
+    }
+}
+
+
+
+
+/*function changeFormatDate(javaDateString) {
     if (javaDateString == null) {
         return "not delivered";
     }
@@ -206,3 +244,4 @@ function getTimeSince(javaDateString){
         return `${seconds} second(s) ago`;
     }
 }
+*/
