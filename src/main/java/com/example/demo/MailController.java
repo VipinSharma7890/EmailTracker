@@ -324,8 +324,12 @@ public ResponseEntity<byte[]> open(@RequestParam("id") int id, HttpServletReques
 			user.setAccountType("free");
 			user.setMailLimit(10);
 
-		}
+		
 			userRepository.save(user);
+		}
+		else{
+			userRepository.save(foundEntity.get(0).setPassword((String) body.get("password")));
+		}
 
 		System.out.println("after");
 		return true;
