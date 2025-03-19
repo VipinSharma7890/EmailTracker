@@ -328,8 +328,10 @@ public ResponseEntity<byte[]> open(@RequestParam("id") int id, HttpServletReques
 			userRepository.save(user);
 		}
 		else{
-			userRepository.save(foundEntity.get(0).setPassword((String) body.get("password")));
-		}
+			UserEntity user = foundEntity.get(0); // Assuming foundEntity is a List<UserEntity>
+user.setPassword((String) body.get("password")); 
+userRepository.save(user);
+}
 
 		System.out.println("after");
 		return true;
