@@ -207,7 +207,7 @@ public ResponseEntity<byte[]> open(@RequestParam("id") int id, HttpServletReques
 		if (id == 0)
 			return result;
 
-		String img_url = website_url + "/open?id=" + id + "&t=${Math.random()}";
+		String img_url = website_url + "/open?id=" + id ;
 		result = 0;
 
 		MailEntity entity = mailRepository.findById(id).get();
