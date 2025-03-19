@@ -122,7 +122,7 @@ public ResponseEntity<byte[]> open(@RequestParam("id") int id, HttpServletReques
     }
 
     // Load the image
-    InputStream in = getClass().getResourceAsStream("/static/photos/favicon.jpg");
+    InputStream in = getClass().getResourceAsStream("/static/photos/favicon.png");
     byte[] imageBytes = IOUtils.toByteArray(in);
 
     // Update mail entity
