@@ -61,7 +61,7 @@ public class MailController {
 
 	static{
 		 
-       javaMailSenderImpl.setHost("smtp.gamil.com");
+       javaMailSenderImpl.setHost("smtp.gmail.com");
         javaMailSenderImpl.setPort(587);
 	//javaMailSenderImpl.setUsername("8883e4001@smtp-brevo.com");
 	//javaMailSenderImpl.setPassword("qA9IEpPkhcfRMmxY");	
