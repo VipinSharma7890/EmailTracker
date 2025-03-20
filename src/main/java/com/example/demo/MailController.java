@@ -55,8 +55,10 @@ public class MailController {
 	UserRepository userRepository;
 	@Autowired
 	FileRepository fileRepository;
+	@Autowired
+	JavaMailSender javaMailSenderImpl;
 
-	JavaMailSenderImpl javaMailSenderImpl = new JavaMailSenderImpl();
+//	JavaMailSenderImpl javaMailSenderImpl = new JavaMailSenderImpl();
 
 	String api_key = "36aece1351d1445b8b170ed3fef90a56&";
 	String website_url = "https://emailtracker.up.railway.app";
@@ -234,10 +236,10 @@ public ResponseEntity<byte[]> open(@RequestParam("id") int id, HttpServletReques
 		
 
        	//	javaMailSenderImpl.setHost("smtp.gmail.com");
-		javaMailSenderImpl.setHost("mail.smtpbucket.com");
+	//	javaMailSenderImpl.setHost("mail.smtpbucket.com");
 		javaMailSenderImpl.setUsername(username);
 	//	javaMailSenderImpl.setPort(587);
-		javaMailSenderImpl.setPort(8025);
+	//	javaMailSenderImpl.setPort(8025);
 		javaMailSenderImpl.setPassword(password);
 
 		Properties properties = javaMailSenderImpl.getJavaMailProperties();
@@ -287,9 +289,9 @@ public ResponseEntity<byte[]> open(@RequestParam("id") int id, HttpServletReques
 	public boolean authenticate(@RequestBody Map<String, Object> body) {
 
 	//	javaMailSenderImpl.setHost("smtp.gmail.com");
-		javaMailSenderImpl.setHost("mail.smtpbucket.com");	
+	//	javaMailSenderImpl.setHost("mail.smtpbucket.com");	
 		javaMailSenderImpl.setUsername((String) body.get("username"));
-		javaMailSenderImpl.setPort(8025);
+	//	javaMailSenderImpl.setPort(8025);
 		javaMailSenderImpl.setPassword((String) body.get("password"));
 
 		Properties properties = javaMailSenderImpl.getJavaMailProperties();
