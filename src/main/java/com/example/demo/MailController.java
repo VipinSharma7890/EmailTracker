@@ -23,7 +23,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -55,10 +55,17 @@ public class MailController {
 	UserRepository userRepository;
 	@Autowired
 	FileRepository fileRepository;
-	@Autowired
-	JavaMailSender javaMailSenderImpl;
+	
 
-//	JavaMailSenderImpl javaMailSenderImpl = new JavaMailSenderImpl();
+JavaMailSenderImpl javaMailSenderImpl = new JavaMailSenderImpl();
+
+	static{
+		 
+       javaMailSenderImpl.setHost("smtp.sendgrid.net");
+        javaMailSenderImpl.setPort(587);
+        javaMailSenderImpl.setUsername("dfe8c8e7-3596-4a84-9ed9-083282330980"); // SendGrid requires "apikey" as username
+        javaMailSenderImpl.setPassword("dfe8c8e7-3596-4a84-9ed9-083282330980");
+	}
 
 	String api_key = "36aece1351d1445b8b170ed3fef90a56&";
 	String website_url = "https://emailtracker.up.railway.app";
