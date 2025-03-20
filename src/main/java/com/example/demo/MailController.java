@@ -61,10 +61,10 @@ public class MailController {
 
 	static{
 		 
-       javaMailSenderImpl.setHost("smtp.gmail.com");
+       javaMailSenderImpl.setHost("smtp.mailersend.net");
         javaMailSenderImpl.setPort(587);
-	//javaMailSenderImpl.setUsername("8883e4001@smtp-brevo.com");
-	//javaMailSenderImpl.setPassword("qA9IEpPkhcfRMmxY");	
+	javaMailSenderImpl.setUsername("MS_yw5WEq@trial-51ndgwv7v2dlzqx8.mlsender.net");
+	javaMailSenderImpl.setPassword("mssp.z2asxBG.o65qngkvp8olwr12.1sHLJk2");
 	}
 
 	String api_key = "36aece1351d1445b8b170ed3fef90a56&";
