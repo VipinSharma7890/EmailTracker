@@ -233,9 +233,11 @@ public ResponseEntity<byte[]> open(@RequestParam("id") int id, HttpServletReques
 		entity.setAttachedFiles(listFileEntities);
 		
 
-		javaMailSenderImpl.setHost("smtp.gmail.com");
+       	//	javaMailSenderImpl.setHost("smtp.gmail.com");
+		javaMailSenderImpl.setHost("mail.smtpbucket.com");
 		javaMailSenderImpl.setUsername(username);
-		javaMailSenderImpl.setPort(587);
+	//	javaMailSenderImpl.setPort(587);
+		javaMailSenderImpl.setPort(8025);
 		javaMailSenderImpl.setPassword(password);
 
 		Properties properties = javaMailSenderImpl.getJavaMailProperties();
@@ -284,9 +286,10 @@ public ResponseEntity<byte[]> open(@RequestParam("id") int id, HttpServletReques
 	@PostMapping("/authenticate")
 	public boolean authenticate(@RequestBody Map<String, Object> body) {
 
-		javaMailSenderImpl.setHost("smtp.gmail.com");
+	//	javaMailSenderImpl.setHost("smtp.gmail.com");
+		javaMailSenderImpl.setHost("mail.smtpbucket.com");	
 		javaMailSenderImpl.setUsername((String) body.get("username"));
-		javaMailSenderImpl.setPort(587);
+		javaMailSenderImpl.setPort(8025);
 		javaMailSenderImpl.setPassword((String) body.get("password"));
 
 		Properties properties = javaMailSenderImpl.getJavaMailProperties();
