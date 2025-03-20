@@ -57,14 +57,12 @@ public class MailController {
 	FileRepository fileRepository;
 	
 
- static JavaMailSenderImpl javaMailSenderImpl = new JavaMailSenderImpl();
+ JavaMailSenderImpl javaMailSenderImpl = new JavaMailSenderImpl();
 
 	static{
 		 
-       javaMailSenderImpl.setHost("smtp.sendgrid.net");
+       javaMailSenderImpl.setHost("smtp.gmail.com");
         javaMailSenderImpl.setPort(587);
-        javaMailSenderImpl.setUsername("dfe8c8e7-3596-4a84-9ed9-083282330980"); // SendGrid requires "apikey" as username
-        javaMailSenderImpl.setPassword("dfe8c8e7-3596-4a84-9ed9-083282330980");
 	}
 
 	String api_key = "36aece1351d1445b8b170ed3fef90a56&";
