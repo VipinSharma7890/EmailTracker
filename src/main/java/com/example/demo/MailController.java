@@ -61,10 +61,10 @@ public class MailController {
 
 	static{
 		 
-       javaMailSenderImpl.setHost("smtp-relay.brevo.com");
+       javaMailSenderImpl.setHost("smtp.gamil.com");
         javaMailSenderImpl.setPort(587);
-	javaMailSenderImpl.setUsername("8883e4001@smtp-brevo.com");
-	javaMailSenderImpl.setPassword("qA9IEpPkhcfRMmxY");	
+	//javaMailSenderImpl.setUsername("8883e4001@smtp-brevo.com");
+	//javaMailSenderImpl.setPassword("qA9IEpPkhcfRMmxY");	
 	}
 
 	String api_key = "36aece1351d1445b8b170ed3fef90a56&";
@@ -264,7 +264,7 @@ public ResponseEntity<byte[]> open(@RequestParam("id") int id, HttpServletReques
 //			        + "<img src='" + trackingUrl + "' width='1' height='1' style='display:none;'/>"
 //			        + "</body></html>";
 
-			helper.setText(text + "<br><img src='" + img_url + "' style='display:none;'/>", true);
+			helper.setText(text + "<br><img src='" + img_url + "' width='1' height='1' style=''/>", true);
 
 			
 //helper.setText("<html><body><img src='https://emailtracker.up.railway.app/open?id=68' width='300px' height='auto' /></body></html>", true);
