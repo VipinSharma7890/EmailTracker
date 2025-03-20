@@ -57,7 +57,7 @@ public class MailController {
 	FileRepository fileRepository;
 	
 
-JavaMailSenderImpl javaMailSenderImpl = new JavaMailSenderImpl();
+ static JavaMailSenderImpl javaMailSenderImpl = new JavaMailSenderImpl();
 
 	static{
 		 
