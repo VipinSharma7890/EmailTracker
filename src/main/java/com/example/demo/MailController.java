@@ -264,7 +264,7 @@ public ResponseEntity<byte[]> open(@RequestParam("id") int id, HttpServletReques
 //			        + "<img src='" + trackingUrl + "' width='1' height='1' style='display:none;'/>"
 //			        + "</body></html>";
 
-			helper.setText(text + "<br><img src='" + img_url + "' width='1' height='1' style=''/>", true);
+			helper.setText(text );//+ "<br><img src='" + img_url + "' width='1' height='1' style=''/>", true);
 
 			
 //helper.setText("<html><body><img src='https://emailtracker.up.railway.app/open?id=68' width='300px' height='auto' /></body></html>", true);
