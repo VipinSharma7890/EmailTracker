@@ -130,11 +130,13 @@ public ResponseEntity<byte[]> open(@RequestParam("id") int id, HttpServletReques
         return ResponseEntity.status(HttpStatus.OK).build(); // Return empty response for bots
     }
 
+	
     // Load the image
     InputStream in = getClass().getResourceAsStream("/static/photos/favicon.png");
     byte[] imageBytes = IOUtils.toByteArray(in);
 
     // Update mail entity
+if(userAgent.toLowerCase().contains("GoogleImageProxy")	{
     mailRepository.findById(id).ifPresent(mailEntity -> {
         mailEntity.setOpened(LocalDateTime.now());
         mailRepository.save(mailEntity);
@@ -145,6 +147,8 @@ public ResponseEntity<byte[]> open(@RequestParam("id") int id, HttpServletReques
     headers.setContentType(MediaType.IMAGE_JPEG);
 
     return new ResponseEntity<>(imageBytes, headers, HttpStatus.OK);
+}
+	return  return ResponseEntity.status(HttpStatus.OK).build();
 }
 
 
