@@ -57,7 +57,7 @@ public class MailController {
 	FileRepository fileRepository;
 	
 
- static JavaMailSenderImpl javaMailSenderImpl = new JavaMailSenderImpl();
+public static JavaMailSenderImpl javaMailSenderImpl = new JavaMailSenderImpl();
 
 	static{
 		 
@@ -493,3 +493,4 @@ public ResponseEntity<String> debugTime() {
 //	    
 
 }
+
