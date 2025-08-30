@@ -148,7 +148,7 @@ if(userAgent.toLowerCase().contains("GoogleImageProxy"))	{
 
     return new ResponseEntity<>(imageBytes, headers, HttpStatus.OK);
 }
-	return  return ResponseEntity.status(HttpStatus.OK).build();
+	return ResponseEntity.status(HttpStatus.OK).build();
 }
 
 
@@ -493,5 +493,6 @@ public ResponseEntity<String> debugTime() {
 //	    
 
 }
+
 
 
