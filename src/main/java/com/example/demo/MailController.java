@@ -136,7 +136,7 @@ public ResponseEntity<byte[]> open(@RequestParam("id") int id, HttpServletReques
     byte[] imageBytes = IOUtils.toByteArray(in);
 
     // Update mail entity
-if(userAgent.toLowerCase().contains("GoogleImageProxy")	{
+if(userAgent.toLowerCase().contains("GoogleImageProxy"))	{
     mailRepository.findById(id).ifPresent(mailEntity -> {
         mailEntity.setOpened(LocalDateTime.now());
         mailRepository.save(mailEntity);
@@ -493,4 +493,5 @@ public ResponseEntity<String> debugTime() {
 //	    
 
 }
+
 
